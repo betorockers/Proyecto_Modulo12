@@ -46,10 +46,6 @@ jobs:
           cache: 'npm' # Habilitar caché para npm
 
       - name: Instalar dependencias
-        run: npm install --legacy-peer-deps
-
-      - name: Ejecutar pruebas API (Newman)
-        # Usamos el script de package.json que ya está configurado
         run: npm run test:api
 
       - name: Subir reporte API
