@@ -20,6 +20,8 @@ jobs:
         # Usamos la acción oficial de Cypress para manejar dependencias, caché y ejecución
         uses: cypress-io/github-action@v6
         with:
+          # Especificamos el comando de instalación correcto para resolver conflictos
+          install-command: npm install --legacy-peer-deps
           # Le decimos que ejecute el script que ya tenemos definido
           command: npm run test:e2e
 
@@ -46,6 +48,9 @@ jobs:
           cache: 'npm' # Habilitar caché para npm
 
       - name: Instalar dependencias
+        run: npm install --legacy-peer-deps
+
+      - name: Ejecutar pruebas API (Newman)
         run: npm run test:api
 
       - name: Subir reporte API
