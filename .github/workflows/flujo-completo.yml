@@ -11,42 +11,49 @@ on:
 jobs:
   test-ui:
     runs-on: ubuntu-latest
+    name: Pruebas de UI con Cypress
     steps:
       - name: Clonar repositorio
-        uses: actions/checkout@v3
-      - name: Configurar Node.js
-        uses: actions/setup-node@v3
+        uses: actions/checkout@v4
+
+      - name: Ejecutar pruebas de Cypress
+        # Usamos la acción oficial de Cypress para manejar dependencias, caché y ejecución
+        uses: cypress-io/github-action@v6
         with:
-          node-version: '18'
-      - name: Instalar dependencias
-        run: npm install
-      - name: Ejecutar pruebas UI (Cypress)
-        run: npm run test:e2e
-      # Opcional: Subir videos de Cypress como evidencia
-      - name: Subir evidencia UI
-        if: always()
-        uses: actions/upload-artifact@v3
+          # Le decimos que ejecute el script que ya tenemos definido
+          command: npm run test:e2e
+
+      - name: Subir artefactos de UI (videos y screenshots)
+        if: failure() # Solo subir si las pruebas fallan
+        uses: actions/upload-artifact@v4
         with:
-          name: reporte-ui
-          path: cypress/videos/
+          name: cypress-artifacts
+          path: |
+            cypress/videos/
+            cypress/screenshots/
 
   test-api:
     runs-on: ubuntu-latest
+    name: Pruebas de API con Newman
     steps:
       - name: Clonar repositorio
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
       - name: Configurar Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '18'
+          cache: 'npm' # Habilitar caché para npm
+
       - name: Instalar dependencias
-        run: npm install
+        run: npm install --legacy-peer-deps
+
       - name: Ejecutar pruebas API (Newman)
-        run: |
-          npm install -g newman newman-reporter-html
-          newman run ./tests/api/postman_collection.json --reporters cli,html --reporter-html-export reports/api-report.html
+        # Usamos el script de package.json que ya está configurado
+        run: npm run test:api
+
       - name: Subir reporte API
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: reporte-api
           path: reports/

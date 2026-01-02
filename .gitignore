@@ -1,25 +1,18 @@
-# docs
-/docs/*
-/docs
-*.txt
-
-# Ejercicio_modulo12
-/Ejercicio_modulo12/*
-
-# Node modules/*
-# Node modules
-/node_modules/*     
-
 # Dependencies
-/node_modules
+node_modules/
 
 # Build and report artifacts
-/reports/
-/cypress/videos/
-/cypress/screenshots/
+reports/
+cypress/videos/
+cypress/screenshots/
 
 # Environment variables
 .env
 
 # OS-specific
 .DS_Store
+
+# docs
+/docs/*
+/docs
+*.txt
