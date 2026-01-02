@@ -21,16 +21,11 @@ jobs:
         with:
           node-version: '18'
           cache: 'npm'
-
-      - name: Instalar dependencias
-        run: npm install --legacy-peer-deps
-
       - name: Ejecutar pruebas de Cypress
         # Usamos la acción oficial de Cypress para manejar dependencias, caché y ejecución
         uses: cypress-io/github-action@v6
         with:
-          install: false
-          # Le decimos que ejecute el script que ya tenemos definido
+          install-command: npm install --legacy-peer-deps
           command: npm run test:e2e
 
       - name: Subir artefactos de UI (videos y screenshots)

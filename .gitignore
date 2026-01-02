@@ -12,7 +12,5 @@ cypress/screenshots/
 # OS-specific
 .DS_Store
 
-# docs
-/docs/*
-/docs
-*.txt
+# Carpeta de documentación (se mantiene local)
+docs/
