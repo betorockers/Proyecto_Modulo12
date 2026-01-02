@@ -1,0 +1,52 @@
+name: Flujo completo de pruebas automatizadas
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test-ui:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v3
+      - name: Configurar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Instalar dependencias
+        run: npm install
+      - name: Ejecutar pruebas UI (Cypress)
+        run: npm run test:e2e
+      # Opcional: Subir videos de Cypress como evidencia
+      - name: Subir evidencia UI
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: reporte-ui
+          path: cypress/videos/
+
+  test-api:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v3
+      - name: Configurar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Instalar dependencias
+        run: npm install
+      - name: Ejecutar pruebas API (Newman)
+        run: |
+          npm install -g newman newman-reporter-html
+          newman run ./tests/api/postman_collection.json --reporters cli,html --reporter-html-export reports/api-report.html
+      - name: Subir reporte API
+        uses: actions/upload-artifact@v3
+        with:
+          name: reporte-api
+          path: reports/

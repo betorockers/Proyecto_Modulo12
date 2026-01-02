@@ -1,0 +1,10 @@
+# docs
+/docs/*
+/docs
+*.txt
+# Ejercicio_modulo12
+/Ejercicio_modulo12/*
+# Node modules/*
+# Node modules
+/node_modules/*     
+/node_modules

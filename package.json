@@ -1,0 +1,26 @@
+{
+  "name": "ejercicio_modulo12",
+  "version": "1.0.0",
+  "description": "Proyecto de automatización Web + API + CI/CD para el Módulo 12",
+  "main": "index.js",
+  "scripts": {
+    "test:e2e": "cypress run",
+    "cy:open": "cypress open",
+    "test:api": "newman run ./tests/api/postman_collection.json --reporters cli,html --reporter-html-export reports/api-report.html",
+    "test:all": "npm run test:e2e && npm run test:api"
+  },
+  "keywords": [
+    "testing",
+    "automation",
+    "cypress",
+    "newman",
+    "ci/cd"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^13.0.0",
+    "newman": "^5.3.0",
+    "newman-reporter-html": "^1.0.5"
+  }
+}
