@@ -16,12 +16,20 @@ jobs:
       - name: Clonar repositorio
         uses: actions/checkout@v4
 
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Instalar dependencias
+        run: npm install --legacy-peer-deps
+
       - name: Ejecutar pruebas de Cypress
         # Usamos la acción oficial de Cypress para manejar dependencias, caché y ejecución
         uses: cypress-io/github-action@v6
         with:
-          # Especificamos el comando de instalación correcto para resolver conflictos
-          install-command: npm install --legacy-peer-deps
+          install: false
           # Le decimos que ejecute el script que ya tenemos definido
           command: npm run test:e2e
 

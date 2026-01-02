@@ -64,5 +64,9 @@ Durante el desarrollo del proyecto, se realizaron varias optimizaciones al flujo
     *   **Problema:** El job de API instalaba `newman` de forma global, lo cual es ineficiente. Además, las dependencias se descargaban desde cero en cada ejecución.
     *   **Solución:** Se eliminó la instalación global y se configuró el `job` para usar la versión local definida en `package.json`. Adicionalmente, se habilitó el `cache` de `npm` para que las instalaciones futuras sean significativamente más rápidas.
 
+5.  **Separación de Instalación y Ejecución en Cypress**
+    *   **Problema:** La acción de Cypress fallaba al intentar instalar dependencias con conflictos de versiones (peer dependencies) dentro de su configuración interna.
+    *   **Solución:** Se extrajo el paso de instalación (`npm install --legacy-peer-deps`) fuera de la acción de Cypress para tener mayor control y consistencia con el resto del pipeline. La acción de Cypress ahora solo se encarga de la ejecución de las pruebas (`install: false`).
+
 ---
 Proyecto realizado para el Módulo 12: Herramientas de Automatización.
