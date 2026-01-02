@@ -16,7 +16,7 @@
     "newman",
     "ci/cd"
   ],
-  "author": "",
+  "author": "Omar Toledo - Automatización QA - Módulo 12",
   "license": "ISC",
   "devDependencies": {
     "cypress": "^13.0.0",
